@@ -44,6 +44,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemAboutAction() {
+		//loadView second parameter passed as empty function
 		loadView("/gui/About.fxml", x -> {});
 	}
 	
@@ -78,6 +79,11 @@ public class MainViewController implements Initializable {
 			mainVBox.getChildren().clear();
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
+			
+			/*
+			 * Consumer with function passed by as parameter
+			 * Consumer method accept to execute function
+			 */
 			
 			T controller = loader.getController();
 			initializaingAction.accept(controller);
