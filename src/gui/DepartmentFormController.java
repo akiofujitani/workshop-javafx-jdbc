@@ -9,9 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Department;
 
 public class DepartmentFormController implements Initializable {
 
+	//Department entity to make possible to inject dependence
+	private Department entity;
+	
 	@FXML
 	private TextField txtId;
 	
@@ -26,7 +30,7 @@ public class DepartmentFormController implements Initializable {
 	
 	@FXML
 	private Button btCancel;
-	
+		
 	@FXML
 	public void onBtSaveAction() {
 		System.out.println("onBtSaveAction");
@@ -42,8 +46,23 @@ public class DepartmentFormController implements Initializable {
 		initializaNodes();
 	}
 
+	//method for dependence injection passing an Department entity to this entity
+	public void setDepartment(Department entity) {
+		this.entity = entity;
+	}
+	
+	//Set limit values to text fields
 	private void initializaNodes() {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtName, 30);
+	}
+	
+	//Assign values from Department entity to text fields 
+	public void updateFormData() {
+		if (entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		txtId.setText(String.valueOf(entity.getId()));
+		txtName.setText(entity.getName());
 	}
 }
